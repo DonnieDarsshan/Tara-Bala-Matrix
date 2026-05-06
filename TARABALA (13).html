@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vibrant Tara Bala & Moon Transit Explorer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ================= VIBRANT THEME CSS ================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&family=Orbitron:wght@700&display=swap');
+
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    --panel-bg: rgba(20, 20, 35, 0.85);
+    --border-glow: #00f2fe;
+    --accent-magenta: #ff0844;
+    --accent-orange: #ffb199;
+    --accent-green: #00b09b;
+    --text-main: #e0e0e0;
+    --text-bright: #ffffff;
+}
+
+body {
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 900;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-shadow: 0px 4px 15px rgba(0, 198, 255, 0.3);
+}
+
+.subtitle {
+    text-align: center;
+    color: #ffb199;
+    font-size: 18px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.panel {
+    background: var(--panel-bg);
+    border: 2px solid rgba(0, 242, 254, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+}
+
+.panel:hover {
+    border-color: rgba(0, 242, 254, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(0, 242, 254, 0.2);
+}
+
+.section-title {
+    font-size: 20px;
+    color: #ff0844;
+    margin-bottom: 15px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255, 8, 68, 0.5);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+/* Form Elements */
+select, input[type="date"], button {
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--text-bright);
+    border: 1px solid #00c6ff;
+    padding: 10px 15px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 6px;
+    outline: none;
+    transition: 0.3s;
+}
+
+select:focus, input[type="date"]:focus {
+    border-color: #ff0844;
+    box-shadow: 0 0 10px rgba(255, 8, 68, 0.4);
+}
+
+select option {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+button.primary-btn {
+    background: linear-gradient(45deg, #ff0844 0%, #ffb199 100%);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 800;
+}
+
+button.primary-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(255, 8, 68, 0.6);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    border: 1px solid rgba(0, 198, 255, 0.2);
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: rgba(0, 198, 255, 0.15);
+    color: #00f2fe;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* Dynamic Colors */
+.tara-good { color: #00ff87; font-weight: 800; }
+.tara-bad { color: #ff0844; font-weight: 800; }
+.tara-mixed { color: #f6d365; font-weight: 800; }
+
+/* Current Moon Banner */
+.moon-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(0,198,255,0.2) 0%, rgba(255,8,68,0.2) 100%);
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+.moon-data { font-size: 18px; font-weight: bold; color: #fff; }
+.moon-tara { font-size: 24px; font-weight: 900; letter-spacing: 1px; }
+
+/* Flex rows */
+.flex-row {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ================= EXACT REFERENCE LIVE MATCHER CSS ================= */
+:root { 
+    --grid-line: #00c6ff; 
+    --text-white: #ffffff; 
+    --asc-yellow: #facc15; 
+}
+#onlineFetchBox { 
+    background: rgba(10, 10, 15, 0.9); 
+    border: 2px solid var(--grid-line); 
+    border-radius: 10px;
+    padding: 18px 22px; 
+    margin: 16px auto 25px auto; 
+    display: flex; 
+    flex-direction: column;
+    gap: 15px; 
+    color: var(--text-white); 
+    font-weight: 700; 
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.2);
+}
+.fetch-row { display: flex; flex-wrap: wrap; gap: 40px; align-items: flex-end; width: 100%; }
+#onlineFetchBox .form-group { display: flex; flex-direction: column; gap: 6px; }
+#onlineFetchBox input, #onlineFetchBox select { 
+    background: #111; color: var(--asc-yellow); border: 1px solid var(--grid-line); 
+    padding: 6px 10px; font-weight: 700; outline: none; border-radius: 4px;
+}
+#onlineFetchBox input:focus, #onlineFetchBox select:focus { border-color: #00ff87; }
+#onlineFetchBox select { cursor: pointer; }
+#onlineFetchBox select option { background: #0c0505; color: #facc15; }
+.map-btn {
+    font-weight: 900; font-size: 14px; padding: 8px 14px; margin: 0; cursor: pointer;
+    background: var(--grid-line); color: #000; border: none; border-radius: 4px; white-space: nowrap; transition: 0.2s;
+}
+.map-btn:hover { filter: brightness(1.2); box-shadow: 0 0 10px var(--grid-line); }
+.map-btn:active { transform: translateY(2px); }
+
+</style>
+</head>
+
+<body>
+
+<h1>Tara Bala Matrix</h1>
+<div class="subtitle">Live Moon Transit & Auspicious Cycle Explorer</div>
+
+<div class="panel" style="text-align: center;">
+    <span class="section-title">Step 1: Select Janma Nakshatra (Manual or Cloud Fetch)</span><br><br>
+	
+
+    <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+        <select id="userNakshatra" onchange="document.getElementById('progMoonToggle').checked = false; document.getElementById('birthStarToggle').checked = false; document.getElementById('birthLagnaToggle').checked = false; updateUI()" style="width: 100%; max-width: 450px; font-size: 16px; margin: 0;">
+        </select>
+        
+        <div style="display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5); padding: 8px 15px; border-radius: 6px; border: 1px solid #f6d365;">
+            <input type="checkbox" id="progMoonToggle" onchange="handleProgMoonToggle()" checked style="width: 18px; height: 18px; cursor: pointer; accent-color: #facc15;">
+            <label for="progMoonToggle" style="font-weight: 600; color: #facc15; cursor: pointer; letter-spacing: 1px;">Prog Moon</label>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5); padding: 8px 15px; border-radius: 6px; border: 1px solid #00c6ff;">
+            <input type="checkbox" id="birthStarToggle" onchange="handleBirthStarToggle()" style="width: 18px; height: 18px; cursor: pointer; accent-color: #00ff87;">
+            <label for="birthStarToggle" style="font-weight: 600; color: #00ff87; cursor: pointer; letter-spacing: 1px;">Birth Star</label>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; background: rgba(0, 0, 0, 0.5); padding: 8px 15px; border-radius: 6px; border: 1px solid #ffb199;">
+            <input type="checkbox" id="birthLagnaToggle" onchange="handleBirthLagnaToggle()" style="width: 18px; height: 18px; cursor: pointer; accent-color: #ff0844;">
+            <label for="birthLagnaToggle" style="font-weight: 600; color: #ffb199; cursor: pointer; letter-spacing: 1px;">Birth Lagna</label>
+        </div>
+    </div>
+
+    <div id="cloudFetchBox" style="background: rgba(10, 10, 15, 0.9); border: 2px solid #ff0844; border-radius: 10px; padding: 18px 22px; display: flex; flex-direction: column; gap: 15px; color: #ffffff; font-weight: 700; box-shadow: 0 0 20px rgba(255, 8, 68, 0.2); text-align: left;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ff0844; padding-bottom: 10px;">
+            <div style="color: #ffb199; font-size: 16px; letter-spacing: 1px; flex: 1;">&#x1F476; CLOUD BIRTH CHART FETCHER (AUTO-FILLS NAKSHATRA)</div>
+            <div style="display: flex; gap: 10px; align-items: center; justify-content: center; flex: 1;">
+                <span style="color: #ccc; font-size: 13px;">Profile Name:</span>
+                <input type="text" id="bName" placeholder="e.g. Name" style="width: 200px; text-align: center; text-transform: uppercase; background: #111; color: #facc15; border: 1px solid #ff0844; padding: 6px 10px; outline: none; border-radius: 4px;">
+            </div>
+            <div style="flex: 1; text-align: right;">
+                <span id="birthStatusIndicator" style="color:#ff0844; font-size:13px; font-weight:bold;">❌ No Birth Data Loaded</span>
+            </div>
+        </div>
+
+        <!-- ROW 1: Date, Time, Latitude, Longitude -->
+        <div class="fetch-row" style="align-items: flex-end;">
+            <div class="form-group">
+                <span>&#x1F4C5; Date (DD-MM-YYYY)</span>
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <input type="text" id="bDay" placeholder="DD" maxlength="2" style="width:45px; text-align:center; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 5px;" onkeydown="findDateSpinner(event, 'day', 'b')" oninput="smartJump(this, 'bMonth', 'day')"> -
+                    <input type="text" id="bMonth" placeholder="MM" maxlength="2" style="width:45px; text-align:center; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 5px;" onkeydown="findDateSpinner(event, 'month', 'b')" oninput="smartJump(this, 'bYear', 'month')"> -
+                    <input type="text" id="bYear" placeholder="YYYY" maxlength="4" style="width:65px; text-align:center; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 5px;" onkeydown="findDateSpinner(event, 'year', 'b')" oninput="smartJump(this, 'bHour', 'year')">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span>&#x23F1; Time (HH:MM:SS)</span>
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <input type="text" id="bHour" placeholder="HH" maxlength="2" style="width:45px; text-align:center; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 5px;" onkeydown="findTimeSpinner(event, 'hour', 'b')" oninput="smartJump(this, 'bMin', 'hour')"> :
+                    <input type="text" id="bMin" placeholder="MM" maxlength="2" style="width:45px; text-align:center; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 5px;" onkeydown="findTimeSpinner(event, 'minute', 'b')" oninput="smartJump(this, 'bSec', 'minute')"> :
+                    <input type="text" id="bSec" value="00" maxlength="2" style="width:45px; text-align:center; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 5px;" onkeydown="findTimeSpinner(event, 'second', 'b')">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <span>Latitude</span>
+                <input type="text" id="bLat" value="13.3190737" style="width: 100px; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 10px;">
+            </div>
+
+            <div class="form-group">
+                <span>Longitude</span>
+                <input type="text" id="bLon" value="77.1326306" style="width: 100px; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 10px;">
+            </div>
+        </div>
+
+        <!-- ROW 2: Search City -->
+        <div class="fetch-row" style="margin-top: 15px;">
+            <div class="form-group" style="flex: 1;">
+                <div style="display:flex; gap:6px; align-items: center;">
+                    <input type="text" id="bMapSearchQuery" placeholder="Search City..." style="width: 200px; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 10px;" onkeydown="if(event.key === 'Enter') searchBOnlineMap()">
+                    <button onclick="searchBOnlineMap()" class="map-btn" style="background: #ff0844; color:#fff;">Search Map</button>
+                    <select id="bMapSearchResults" style="display:none; width: 300px; margin: 0; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 10px;" onchange="applyBMapSelection()"></select>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROW 3: Standard Places + Action Buttons -->
+        <div class="fetch-row" style="border-top: 1px solid rgba(255,8,68,0.5); padding-top: 15px; margin-top: 10px; width: 100%; align-items: flex-end; gap: 15px;">
+            <div class="form-group">
+                <span>&#x1F4CD; Standard Places</span>
+                <select id="bLocationPreset" onchange="applyBPresetLocation()" style="width: 180px; background: #111; color: #facc15; border: 1px solid #ff0844; border-radius: 4px; padding: 6px 10px; cursor: pointer;">
+                    <option value="manual" style="background: #0c0505; color: #facc15;">Manual GPS (Default)</option>
+                    <option value="13.3190737,77.1326306" style="background: #0c0505; color: #facc15;">Tumakuru</option>
+                    <option value="12.918880,77.634986" style="background: #0c0505; color: #facc15;">Bengaluru</option>
+                    <option value="13.315527,76.942059" style="background: #0c0505; color: #facc15;">Gubbi</option>
+                    <option value="12.304776,76.655108" style="background: #0c0505; color: #facc15;">Mysore</option>
+                </select>
+            </div>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+                <button class="map-btn" style="background: rgba(0,0,0,0.5); border: 1px solid #ff0844; color:#fff;" onclick="clearBFetchData()">Clear</button>
+                <input type="file" id="bLoadProfileInput" accept=".json" style="display:none" onchange="loadBCloudProfile(event)">
+                <button class="map-btn" style="background: rgba(0,0,0,0.5); border: 1px solid #ff0844; color:#fff;" onclick="document.getElementById('bLoadProfileInput').click()">Load Chart</button>
+                <button class="map-btn" style="background: rgba(0,0,0,0.5); border: 1px solid #ff0844; color:#fff;" onclick="saveBCloudProfile()">Save Profile</button>
+                <button id="bFetchCloudBtn" class="map-btn" style="background: linear-gradient(45deg, #ff0844 0%, #ffb199 100%); color:#000;" onclick="fetchBBirthFromCloud()">Fetch Birth Data &#x1F4E1;</button>
+
+                <div id="bServerWakeContainer" style="visibility: hidden; display: flex; align-items: center; gap: 10px; font-family: monospace; font-weight: bold;">
+                    <span id="bWakeMessage" style="color: #facc15; font-size: 14px;">> SYS.WAKE...</span>
+                    <span id="bDigitalClockPart" style="font-family: 'Orbitron', sans-serif; font-size: 20px; letter-spacing: 2px; color: #facc15;">00:00</span>
+                    <span id="bProgressBarPart" style="color: #facc15; font-size: 14px; letter-spacing: 1px;">[....................]</span>
+                </div>
+            </div>
+        </div>
+		
+		
+		
+    </div>
+</div>
+
+<div class="panel" id="moonStatusPanel">
+    <div class="section-title" style="color: #00f2fe; border-color: #00f2fe;">Live Moon Status (Right Now)</div>
+    <div class="moon-banner">
+        <div class="moon-data" id="liveMoonDetails">Fetching Live Moon Data...</div>
+        <div class="moon-tara" id="liveTaraResult">--</div>
+    </div>
+</div>
+
+<div class="panel">
+    <div class="section-title">Your 3-Cycle Tara Chart</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Tara Bala</th>
+                <th>Planet</th>
+                <th>Cycle 1 (1-9)</th>
+                <th>Cycle 2 (10-18)</th>
+                <th>Cycle 3 (19-27)</th>
+            </tr>
+        </thead>
+        <tbody id="taraTableBody">
+            <tr><td colspan="5">Select a Nakshatra to generate your chart...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<div id="onlineFetchBox">
+    <div style="border-bottom: 1px solid #00c6ff; padding-bottom: 10px;">
+        <div style="color: #00ff87; font-size: 16px; letter-spacing: 1px;">&#x1F310; LIVE MOON LOCATION (AUTO-SYNCING)</div>
+    </div>
+    
+    <!-- ROW 1: Date, Time, Latitude, Longitude -->
+    <div class="fetch-row" style="align-items: flex-end;">
+        <div class="form-group">
+            <span>&#x1F4C5; Date (DD-MM-YYYY)</span>
+            <div style="display:flex; gap:6px; align-items:center;">
+                <input type="text" id="onDay" maxlength="2" style="width:45px; text-align:center;" onkeydown="dateSpinner(event, 'day')" oninput="smartJump(this, 'onMonth', 'day')" onchange="triggerFetch()"> -
+                <input type="text" id="onMonth" maxlength="2" style="width:45px; text-align:center;" onkeydown="dateSpinner(event, 'month')" oninput="smartJump(this, 'onYear', 'month')" onchange="triggerFetch()"> -
+                <input type="text" id="onYear" maxlength="4" style="width:65px; text-align:center;" onkeydown="dateSpinner(event, 'year')" oninput="smartJump(this, 'onHour', 'year')" onchange="triggerFetch()">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <span>&#x23F1; Time (HH:MM:SS)</span>
+            <div style="display:flex; gap:6px; align-items:center;">
+                <input type="text" id="onHour" maxlength="2" style="width:45px; text-align:center;" onkeydown="timeSpinner(event, 'hour')" oninput="smartJump(this, 'onMin', 'hour')" onchange="triggerFetch()"> :
+                <input type="text" id="onMin" maxlength="2" style="width:45px; text-align:center;" onkeydown="timeSpinner(event, 'minute')" oninput="smartJump(this, 'onSec', 'minute')" onchange="triggerFetch()"> :
+                <input type="text" id="onSec" maxlength="2" style="width:45px; text-align:center;" onkeydown="timeSpinner(event, 'second')" onchange="triggerFetch()">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span>Latitude</span>
+            <input type="text" id="onlineLat" value="13.3190737" style="width: 100px;" onchange="triggerFetch()">
+        </div>
+
+        <div class="form-group">
+            <span>Longitude</span>
+            <input type="text" id="onlineLon" value="77.1326306" style="width: 100px;" onchange="triggerFetch()">
+        </div>
+    </div>
+    
+    <!-- ROW 2: Search City -->
+    <div class="fetch-row" style="margin-top: 15px;">
+        <div class="form-group" style="flex: 1;">
+            <div style="display:flex; gap:6px; align-items: center;">
+                <input type="text" id="mapSearchQuery" placeholder="Search City..." style="width: 200px;" onkeydown="if(event.key === 'Enter') searchOnlineMap()">
+                <button onclick="searchOnlineMap()" class="map-btn">Search Map</button>
+                <select id="mapSearchResults" style="display:none; width: 300px; margin: 0;" onchange="applyMapSelection()"></select>
+            </div>
+        </div>
+    </div>
+
+    <!-- ROW 3: Standard Places + Action Buttons -->
+    <div class="fetch-row" style="border-top: 1px solid #00c6ff; padding-top: 15px; margin-top: 10px; width: 100%; align-items: flex-end; gap: 15px;">
+        <div class="form-group">
+            <span>&#x1F4CD; Standard Places</span>
+            <select id="locationPreset" onchange="applyPresetLocation(); triggerFetch();" style="width: 180px;">
+                <option value="manual">Manual GPS (Default)</option>
+                <option value="13.3190737,77.1326306">Tumakuru</option>
+                <option value="12.918880,77.634986">Bengaluru</option>
+                <option value="13.315527,76.942059">Gubbi</option>
+                <option value="12.304776,76.655108">Mysore</option>
+            </select>
+        </div>
+        
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+            <button onclick="resetToNow()" class="map-btn" style="background: #00ff87; color: #000;">Reset to Now &#x23F1;</button>
+
+            <div id="serverWakeContainer" style="visibility: hidden; display: flex; align-items: center; gap: 10px; font-family: monospace; font-weight: bold;">
+                <span id="wakeMessage" style="color: #facc15; font-size: 14px;">> SYS.WAKE...</span>
+                <span id="digitalClockPart" style="font-family: 'Orbitron', sans-serif; font-size: 20px; letter-spacing: 2px; color: #facc15;">00:00</span>
+                <span id="progressBarPart" style="color: #facc15; font-size: 14px; letter-spacing: 1px;">[....................]</span>
+            </div>
+        </div>
+    </div>
+	
+	
+	
+	
+	
+	
+	
+</div>
+
+<div class="panel">
+    <div class="section-title" style="color: #f6d365; border-color: #f6d365;">30-Day Moon Transit Explorer</div>
+    
+    <div class="flex-row" style="margin-bottom: 20px; align-items: flex-end;">
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="font-weight: 600; color: #f6d365;">From Date</label>
+            <input type="date" id="transitFrom" onchange="autoSetToDate(); fetchMoonTransitsRange()">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="font-weight: 600; color: #f6d365;">To Date (+30 Days)</label>
+            <input type="date" id="transitTo" readonly style="background: rgba(0,0,0,0.8); cursor: not-allowed; color: #888;">
+        </div>
+        <div style="padding-bottom: 2px;">
+            <button class="primary-btn" onclick="fetchMoonTransitsRange()">Refresh Timings</button>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 8px; padding-bottom: 6px; margin-left: 15px;">
+            <input type="checkbox" id="ignorePadaToggle" checked onchange="fetchMoonTransitsRange()" style="width: 18px; height: 18px; cursor: pointer; accent-color: #00ff87;">
+            <label for="ignorePadaToggle" style="font-weight: 600; color: #00ff87; cursor: pointer;">Ignore Pada</label>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 5px; margin-left: auto; border-left: 2px solid #00f2fe; padding-left: 15px;">
+            <label style="font-weight: 600; color: #00f2fe;">Find Tara (Custom Date & Time)</label>
+			
+			
+			
+            <div style="display: flex; gap: 40px; align-items: center;">
+                <div style="display:flex; gap:4px; align-items:center;">
+                    <input type="text" id="findDay" placeholder="DD" maxlength="2" style="width:40px; text-align:center; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #00c6ff; border-radius: 4px; padding: 8px 5px;" onkeydown="findDateSpinner(event, 'day')" oninput="smartJump(this, 'findMonth', 'day')" onchange="syncFindToLive()"> -
+                    <input type="text" id="findMonth" placeholder="MM" maxlength="2" style="width:40px; text-align:center; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #00c6ff; border-radius: 4px; padding: 8px 5px;" onkeydown="findDateSpinner(event, 'month')" oninput="smartJump(this, 'findYear', 'month')" onchange="syncFindToLive()"> -
+                    <input type="text" id="findYear" placeholder="YYYY" maxlength="4" style="width:55px; text-align:center; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #00c6ff; border-radius: 4px; padding: 8px 5px;" onkeydown="findDateSpinner(event, 'year')" oninput="smartJump(this, 'findHour', 'year')" onchange="syncFindToLive()">
+                </div>
+                <div style="display:flex; gap:4px; align-items:center;">
+                    <input type="text" id="findHour" placeholder="HH" maxlength="2" style="width:40px; text-align:center; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #00c6ff; border-radius: 4px; padding: 8px 5px;" onkeydown="findTimeSpinner(event, 'hour')" oninput="smartJump(this, 'findMin', 'hour')" onchange="syncFindToLive()"> :
+                    <input type="text" id="findMin" placeholder="MM" maxlength="2" style="width:40px; text-align:center; background: rgba(0,0,0,0.5); color: #fff; border: 1px solid #00c6ff; border-radius: 4px; padding: 8px 5px;" onkeydown="findTimeSpinner(event, 'minute')" oninput="smartJump(this, 'findBtn', 'minute')" onchange="syncFindToLive()">
+                </div>
+                <button id="findBtn" class="primary-btn" style="background: linear-gradient(45deg, #00b09b, #96c93d); padding: 8px 15px;" onclick="findManualTara()">Find</button>
+            </div>
+			
+			
+            <span id="manualFindResult" style="color: #facc15; font-weight: bold; margin-top: 5px;"></span>
+        </div>
+    </div>
+
+    <div id="transitStatus" style="font-family: monospace; font-size: 14px; color: #00ff87; margin-bottom: 10px;"></div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sign (Rasi)</th>
+                <th>Lord of Star</th>
+                <th>Moon Nakshatra & Pada</th>
+                <th>Your Tara Bala</th>
+                <th>Entry Time (From)</th>
+                <th>Exit Time (To)</th>
+            </tr>
+        </thead>
+        <tbody id="moonTransitBody">
+            <tr><td colspan="6">Loading moon movements...</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+/* ===================== CONSTANTS & DATA ===================== */
+const rasiNames = [
+    "Mesha","Vrishaba","Mithuna","Kataka","Simha","Kanya",
+    "Thula","Vrischik","Dhanu","Makara","Kumbha","Meena"
+];
+
+const nakshatras = [
+    "Ashwini","Bharani","Krittika","Rohini","Mrigashira","Ardra","Punarvasu","Pushya","Ashlesha",
+    "Magha","Purva Phalguni","Uttara Phalguni","Hasta","Chitra","Swati","Vishakha","Anuradha","Jyeshtha",
+    "Moola","Purva Ashadha","Uttara Ashadha","Shravana","Dhanishta","Shatabhisha",
+    "Purva Bhadrapada","Uttara Bhadrapada","Revati"
+];
+
+const nakLords = [
+    "Ketu","Venus","Surya","Chandra","Mangala","Rahu","Jupiter","Saturn","Budha",
+    "Ketu","Venus","Surya","Chandra","Mangala","Rahu","Jupiter","Saturn","Budha",
+    "Ketu","Venus","Surya","Chandra","Mangala","Rahu","Jupiter","Saturn","Budha"
+];
+
+const taraNames = [
+    "Janma", "Sampat", "Vipath", "Kshema", "Pratyari",
+    "Sadhana", "Nidhana", "Mitra", "Param-Mitra"
+];
+
+/* Generate 108 Padas */
+const padas = [];
+let padaCount = 0;
+for(let i=0; i<27; i++){
+  for(let p=1; p<=4; p++){
+    const rasiIndex = Math.floor(padaCount / 9);
+    padas.push(`${rasiNames[rasiIndex]} - ${p} - ${nakLords[i]} - ${nakshatras[i]} - ${p}`);
+    padaCount++;
+  }
+}
+const TOTAL_PADAS = padas.length;
+
+/* State */
+let globalLiveMoonNakshatra = null;
+let globalLiveMoonPadaStr = null;
+
+/* ===================== INITIALIZATION ===================== */
+function init() {
+    // 1. Populate Dropdown
+    const dropdown = document.getElementById("userNakshatra");
+    dropdown.innerHTML = '<option value="">-- Select Your Janma Nakshatra / Pada --</option>' +
+                         padas.map((v, i) => `<option value="${v}">[${i+1}]. ${v}</option>`).join("");
+    
+    // 2. Set Default Date Range (-10 days from today)
+    let dFrom = new Date();
+    dFrom.setDate(dFrom.getDate() - 10);
+    document.getElementById("transitFrom").value = dFrom.toISOString().split('T')[0];
+    
+    // Auto calculate the +30 Days
+    autoSetToDate();
+}
+
+// When the "From" date is changed, automatically set "To" date to +30 days
+function autoSetToDate() {
+    let fromVal = document.getElementById("transitFrom").value;
+    if(!fromVal) return;
+    
+    let d = new Date(fromVal);
+    d.setDate(d.getDate() + 30); // Since we start -10 days, adding 30 covers +20 days
+    document.getElementById("transitTo").value = d.toISOString().split('T')[0];
+}
+
+
+
+
+
+
+
+
+
+window.addEventListener('load', () => {
+    init();
+    resetToNow(); // Triggers the live fetcher tool
+    fetchMoonTransitsRange(); // Auto-load the -5 to +30 days table
+});
+
+/* ===================== TARA LOGIC ===================== */
+function handleProgMoonToggle() {
+    const toggle = document.getElementById("progMoonToggle");
+    const starToggle = document.getElementById("birthStarToggle");
+    const lagnaToggle = document.getElementById("birthLagnaToggle");
+
+    if (toggle.checked) {
+        if(starToggle) starToggle.checked = false;
+        if(lagnaToggle) lagnaToggle.checked = false;
+        
+        if (!window.birthProfile) {
+            toggle.checked = false;
+            return;
+        }
+        // Trigger the existing auto progression logic to update the dropdown
+        if(typeof triggerAutoProgression === 'function') triggerAutoProgression('live');
+    }
+}
+
+function handleBirthStarToggle() {
+    const toggle = document.getElementById("birthStarToggle");
+    const lagnaToggle = document.getElementById("birthLagnaToggle");
+    const progToggle = document.getElementById("progMoonToggle");
+    const dropdown = document.getElementById("userNakshatra");
+
+    if (toggle.checked) {
+        if(lagnaToggle) lagnaToggle.checked = false;
+        if(progToggle) progToggle.checked = false;
+        
+        if (!window.birthProfile) {
+            // Silently revert if no data is loaded yet
+            toggle.checked = false;
+            return;
+        }
+        const bMoonDeg = window.birthProfile.moonDeg;
+        const birthPadaStr = degreeToPada(bMoonDeg);
+        dropdown.value = birthPadaStr;
+        updateUI(); 
+    }
+}
+
+function handleBirthLagnaToggle() {
+    const toggle = document.getElementById("birthLagnaToggle");
+    const starToggle = document.getElementById("birthStarToggle");
+    const progToggle = document.getElementById("progMoonToggle");
+    const dropdown = document.getElementById("userNakshatra");
+
+    if (toggle.checked) {
+        if(starToggle) starToggle.checked = false;
+        if(progToggle) progToggle.checked = false;
+        
+        // Added isNaN check to ensure it fails silently if the parser grabbed bad data
+        if (!window.birthProfile || window.birthProfile.lagnaDeg === undefined || isNaN(window.birthProfile.lagnaDeg)) {
+            toggle.checked = false;
+            return;
+        }
+        
+        const bLagnaDeg = window.birthProfile.lagnaDeg;
+        const lagnaPadaStr = degreeToPada(bLagnaDeg);
+        dropdown.value = lagnaPadaStr;
+        updateUI(); 
+    }
+}
+
+function getTara(moonNakName, userNakName) {
+    if (!userNakName) return "Select Janma Nakshatra";
+    let mIdx = nakshatras.indexOf(moonNakName);
+    let uIdx = nakshatras.indexOf(userNakName);
+    if(mIdx === -1 || uIdx === -1) return "--";
+    let tIdx = (mIdx - uIdx + 27) % 27 % 9;
+    return taraNames[tIdx];
+}
+
+function getTaraClass(taraName) {
+    if (["Vipath", "Pratyari", "Nidhana"].includes(taraName)) return "tara-bad";
+    if (["Sampat", "Kshema", "Sadhana", "Mitra"].includes(taraName)) return "tara-good";
+    if (["Janma", "Param-Mitra"].includes(taraName)) return "tara-mixed";
+    return "";
+}
+
+function updateUI() {
+    updateTaraTable();
+    updateLiveMoonBanner();
+    
+    // --- NEW: UPDATE FIND TARA RESULT TEXT IF SEARCH IS ACTIVE ---
+    if (window.lastFoundNak) {
+        let sel = document.getElementById("userNakshatra").value;
+        let userNakName = sel ? sel.split(" - ")[3] : null;
+        if (userNakName) {
+            let tStr = getTara(window.lastFoundNak, userNakName);
+            let tClass = getTaraClass(tStr);
+            let colorHex = tClass === "tara-bad" ? "#ff0844" : (tClass === "tara-good" ? "#00ff87" : "#f6d365");
+            document.getElementById("manualFindResult").innerHTML = `Moon in ${window.lastFoundNak} | Tara: <span style="color:${colorHex}">${tStr}</span>`;
+        }
+    }
+    // -------------------------------------------------------------
+
+    // If the transit table is already loaded, refresh it to apply new Tara calculations
+    if(document.getElementById("moonTransitBody").innerHTML.includes("Janma") || 
+       document.getElementById("moonTransitBody").innerHTML.includes("Pada")) {
+        fetchMoonTransitsRange(); // Re-render with new user nakshatra
+    }
+}
+
+function updateTaraTable() {
+    let sel = document.getElementById("userNakshatra").value;
+    const tBody = document.getElementById("taraTableBody");
+    
+    if(!sel) {
+        tBody.innerHTML = '<tr><td colspan="4">Select a Nakshatra to generate your chart...</td></tr>';
+        return;
+    }
+    
+    let userNakName = sel.split(" - ")[3];
+    let userNakIdx = nakshatras.indexOf(userNakName);
+    
+    let html = '';
+    for(let i=0; i<9; i++) {
+        let n1Idx = (userNakIdx + i) % 27;
+        let n1 = nakshatras[n1Idx];
+        let n2 = nakshatras[(userNakIdx + i + 9) % 27];
+        let n3 = nakshatras[(userNakIdx + i + 18) % 27];
+        let planetLord = nakLords[n1Idx]; 
+        let tName = taraNames[i];
+        let tClass = getTaraClass(tName);
+        
+        html += `<tr>
+            <td class="${tClass}">${tName}</td>
+            <td style="color:#facc15; font-weight:bold;">${planetLord}</td>
+            <td>${n1}</td>
+            <td>${n2}</td>
+            <td>${n3}</td>
+        </tr>`;
+    }
+    tBody.innerHTML = html;
+}
+
+function updateLiveMoonBanner() {
+    if (!globalLiveMoonNakshatra) return;
+    
+    let sel = document.getElementById("userNakshatra").value;
+    let userNakName = sel ? sel.split(" - ")[3] : null;
+    
+    let taraStr = getTara(globalLiveMoonNakshatra, userNakName);
+    let tClass = getTaraClass(taraStr);
+    
+    document.getElementById("liveMoonDetails").innerText = `Moon in: ${globalLiveMoonPadaStr}`;
+    document.getElementById("liveTaraResult").innerHTML = `<span class="${tClass}">Result: ${taraStr}</span>`;
+}
+
+
+/* ===================== EXACT LIVE FETCHER JS ===================== */
+function resetToNow() {
+    const now = new Date();
+    let d = String(now.getDate()).padStart(2, '0');
+    let m = String(now.getMonth() + 1).padStart(2, '0');
+    let y = now.getFullYear();
+    let hr = String(now.getHours()).padStart(2, '0');
+    let min = String(now.getMinutes()).padStart(2, '0');
+    let sec = String(now.getSeconds()).padStart(2, '0');
+    
+    // Sync Live Moon inputs
+    document.getElementById("onDay").value = d;
+    document.getElementById("onMonth").value = m;
+    document.getElementById("onYear").value = y;
+    document.getElementById("onHour").value = hr;
+    document.getElementById("onMin").value = min;
+    document.getElementById("onSec").value = sec;
+    
+    // Sync Custom Find Tara inputs
+    document.getElementById("findDay").value = d;
+    document.getElementById("findMonth").value = m;
+    document.getElementById("findYear").value = y;
+    document.getElementById("findHour").value = hr;
+    document.getElementById("findMin").value = min;
+    
+    triggerFetch();
+}
+
+let fetchTimeout = null;
+function triggerFetch() {
+    if(fetchTimeout) clearTimeout(fetchTimeout);
+    fetchTimeout = setTimeout(fetchFromCloud, 1000); 
+    // Snap progression when Live Transit inputs are used
+    if(typeof triggerAutoProgression === 'function') triggerAutoProgression('live'); 
+}
+
+function applyPresetLocation() {
+    const val = document.getElementById("locationPreset").value;
+    if (val === "manual") {
+        document.getElementById("onlineLat").value = "13.3190737";
+        document.getElementById("onlineLon").value = "77.1326306";
+    } else {
+        const coords = val.split(",");
+        document.getElementById("onlineLat").value = coords[0];
+        document.getElementById("onlineLon").value = coords[1];
+    }
+}
+
+let currentMapResults = [];
+async function searchOnlineMap() {
+    const query = document.getElementById("mapSearchQuery").value.trim();
+    if (!query) return;
+    const btn = document.querySelector("button[onclick='searchOnlineMap()']");
+    const origText = btn.innerHTML;
+    btn.innerHTML = "Searching..."; btn.disabled = true;
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=10&q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        const resultsDropdown = document.getElementById("mapSearchResults");
+        resultsDropdown.innerHTML = ""; 
+        if (data && data.length > 0) {
+            currentMapResults = data;
+            const defaultOpt = document.createElement("option");
+            defaultOpt.text = `-- Found ${data.length} places. Select one --`; defaultOpt.value = "";
+            resultsDropdown.appendChild(defaultOpt);
+            data.forEach((place, index) => {
+                const opt = document.createElement("option");
+                opt.text = place.display_name.length > 60 ? place.display_name.substring(0, 57) + "..." : place.display_name;
+                opt.value = index; resultsDropdown.appendChild(opt);
+            });
+            resultsDropdown.style.display = "block";
+        } else {
+            resultsDropdown.style.display = "none";
+            alert("Place not found.");
+        }
+    } catch (error) { alert("Map search error."); } 
+    finally { btn.innerHTML = origText; btn.disabled = false; }
+}
+
+function applyMapSelection() {
+    const dropdown = document.getElementById("mapSearchResults");
+    const selectedIndex = dropdown.value;
+    if (selectedIndex !== "") {
+        const selectedPlace = currentMapResults[selectedIndex];
+        document.getElementById("onlineLat").value = parseFloat(selectedPlace.lat).toFixed(6);
+        document.getElementById("onlineLon").value = parseFloat(selectedPlace.lon).toFixed(6);
+        document.getElementById("locationPreset").value = "manual";
+        triggerFetch();
+    }
+}
+
+function dateSpinner(e, type) {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+        let d = parseInt(document.getElementById("onDay").value) || 1;
+        let m = parseInt(document.getElementById("onMonth").value) || 1;
+        let y = parseInt(document.getElementById("onYear").value) || new Date().getFullYear();
+        let delta = (e.key === "ArrowUp") ? 1 : -1;
+        if (type === 'day') {
+            let dateObj = new Date(y, m - 1, d + delta);
+            d = dateObj.getDate(); m = dateObj.getMonth() + 1; y = dateObj.getFullYear();
+        } else if (type === 'month') {
+            m += delta;
+            if (m > 12) { m = 1; y++; } if (m < 1) { m = 12; y--; }
+            let maxDays = new Date(y, m, 0).getDate();
+            if (d > maxDays) d = maxDays;
+        } else if (type === 'year') {
+            y += delta;
+            let maxDays = new Date(y, m, 0).getDate();
+            if (d > maxDays) d = maxDays;
+        }
+        document.getElementById("onDay").value = String(d).padStart(2, '0');
+        document.getElementById("onMonth").value = String(m).padStart(2, '0');
+        document.getElementById("onYear").value = y;
+        triggerFetch();
+    }
+}
+
+function timeSpinner(e, type) {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+        let hr = parseInt(document.getElementById("onHour").value) || 0;
+        let min = parseInt(document.getElementById("onMin").value) || 0;
+        let sec = parseInt(document.getElementById("onSec").value) || 0;
+        let delta = (e.key === "ArrowUp") ? 1 : -1;
+        if (type === 'hour') {
+            hr += delta; if (hr > 23) hr = 0; if (hr < 0) hr = 23;
+        } else if (type === 'minute') {
+            min += delta;
+            if (min > 59) { min = 0; hr++; } if (min < 0) { min = 59; hr--; }
+            if (hr > 23) hr = 0; if (hr < 0) hr = 23;
+        } else if (type === 'second') {
+            sec += delta;
+            if (sec > 59) { sec = 0; min++; } if (sec < 0) { sec = 59; min--; }
+            if (min > 59) { min = 0; hr++; } if (min < 0) { min = 59; hr--; }
+            if (hr > 23) hr = 0; if (hr < 0) hr = 23;
+        }
+        document.getElementById("onHour").value = String(hr).padStart(2, '0');
+        document.getElementById("onMin").value = String(min).padStart(2, '0');
+        document.getElementById("onSec").value = String(sec).padStart(2, '0');
+        triggerFetch();
+    }
+}
+
+function smartJump(currentElement, nextElementId, type) {
+    let val = currentElement.value.replace(/\D/g, '');
+    currentElement.value = val;
+    if (val.length === 0) return;
+    let shouldJump = false;
+    
+    if (type === 'year') {
+        if (val.length >= 4) shouldJump = true;
+    } else {
+        if (val.length >= 2) shouldJump = true;
+        else if (val.length === 1) {
+            let num = parseInt(val);
+            if (type === 'day' && num >= 4) shouldJump = true;
+            if (type === 'month' && num >= 2) shouldJump = true;   
+            if (type === 'hour' && num >= 3) shouldJump = true;    
+            if (type === 'minute' && num >= 6) shouldJump = true;  
+        }
+    }
+    
+    if (shouldJump) {
+        if (type !== 'year' && val.length === 1) currentElement.value = "0" + val;
+        if (nextElementId) document.getElementById(nextElementId).focus();
+    }
+}
+
+function degreeToPada(deg){
+  deg = ((deg % 360) + 360) % 360;
+  const padaIndex = Math.floor(deg / (360 / TOTAL_PADAS));
+  return padas[padaIndex];
+}
+
+let wakeInterval = null;
+
+async function fetchFromCloud() {
+    const d = document.getElementById("onDay").value;
+    const m = document.getElementById("onMonth").value;
+    const y = document.getElementById("onYear").value;
+    const hr = document.getElementById("onHour").value;
+    const min = document.getElementById("onMin").value;
+    const sec = document.getElementById("onSec").value || "00"; 
+    const latVal = document.getElementById("onlineLat").value;
+    const lonVal = document.getElementById("onlineLon").value;
+
+    if (!d || !m || !y || !hr || !min || !latVal || !lonVal) return;
+
+    const requestData = {
+        year: parseInt(y), month: parseInt(m), day: parseInt(d),
+        hour: parseInt(hr), minute: parseInt(min), second: parseInt(sec),
+        lat: parseFloat(latVal), lon: parseFloat(lonVal),
+        timezone_offset: 330, horary_mode: false 
+    };
+
+    const wakeContainer = document.getElementById("serverWakeContainer");
+    const wakeMessage = document.getElementById("wakeMessage");
+    const digitalClockPart = document.getElementById("digitalClockPart");
+    const progressBarPart = document.getElementById("progressBarPart");
+
+    wakeContainer.style.visibility = "visible";
+    wakeMessage.style.color = "#facc15";
+    digitalClockPart.style.color = "#facc15";
+    wakeMessage.innerText = "> SYNCING...";
+    
+    let secondsElapsed = 0;
+    digitalClockPart.innerText = "00:00";
+    progressBarPart.innerText = "[" + ".".repeat(20) + "]";
+
+    if (wakeInterval) clearInterval(wakeInterval);
+
+    wakeInterval = setInterval(() => {
+        secondsElapsed++;
+        let mins = Math.floor(secondsElapsed / 60);
+        let secs = secondsElapsed % 60;
+        digitalClockPart.innerText = String(mins).padStart(2, '0') + ":" + String(secs).padStart(2, '0');
+
+        if (secondsElapsed <= 40) {
+            let percent = (secondsElapsed / 40) * 100;
+            let pipesCount = Math.floor(percent / 5);
+            progressBarPart.innerText = "[" + "|".repeat(pipesCount) + ".".repeat(20 - pipesCount) + "]";
+        } else {
+            let wavePos = (secondsElapsed % 20);
+            let waveArr = Array(20).fill('.');
+            waveArr[wavePos] = '|';
+            if(wavePos > 0) waveArr[wavePos-1] = '|';
+            if(wavePos < 19) waveArr[wavePos+1] = '|';
+            progressBarPart.innerText = "[" + waveArr.join('') + "]";
+        }
+        
+        if (secondsElapsed === 5) wakeMessage.innerText = "> WAKING_COLD_INSTANCE...";
+    }, 1000);
+	
+    try {
+        const response = await fetch('https://donnie-astro-engine.onrender.com/calculate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+        });
+
+        const result = await response.json();
+        if (wakeInterval) clearInterval(wakeInterval);
+        
+        if (result.status === "success") {
+            wakeMessage.innerText = "> SYNC_SUCCESS";
+            wakeMessage.style.color = "#39FF14";
+            digitalClockPart.style.color = "#39FF14";
+            progressBarPart.innerText = "[" + "|".repeat(20) + "]";
+            
+            setTimeout(() => { if (wakeContainer) wakeContainer.style.visibility = "hidden"; }, 2000); 
+
+            // Extract Moon position
+            const data = result.data;
+            const moonDeg = data.planets["Moon"] || data.planets["Chandra"];
+            
+            if(moonDeg !== undefined) {
+                globalLiveMoonPadaStr = degreeToPada(moonDeg); // e.g. "Mesha - 1 - Ketu - Ashwini - 1"
+                globalLiveMoonNakshatra = globalLiveMoonPadaStr.split(" - ")[3];
+                updateLiveMoonBanner();
+            }
+
+        } else {
+            throw new Error("Server error");
+        }
+    } catch (error) {
+        if (wakeInterval) clearInterval(wakeInterval);
+        wakeMessage.innerText = "> SYNC_FAILED";
+        wakeMessage.style.color = "#ff4444";
+        digitalClockPart.style.color = "#ff4444";
+        setTimeout(() => { if (wakeContainer) wakeContainer.style.visibility = "hidden"; }, 3000);
+    }
+}
+
+/* ===================== ENTRY / EXIT MOON TRANSIT VIEWER ===================== */
+function formatTransitDateIST(utcString){
+  const date = new Date(utcString);
+  const dateStr = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", day: "2-digit", month: "short", year: "numeric" }).format(date);
+  const timeStr = new Intl.DateTimeFormat("en-IN", { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false }).format(date);
+  return { date: dateStr, time: timeStr };
+}
+
+async function fetchMoonTransitsRange() {
+    const fStr = document.getElementById("transitFrom").value;
+    const tStr = document.getElementById("transitTo").value;
+    const statusDiv = document.getElementById("transitStatus");
+    const tBody = document.getElementById("moonTransitBody");
+
+    if(!fStr || !tStr) return;
+
+    let dStart = new Date(fStr);
+    let dEnd = new Date(tStr);
+
+    statusDiv.style.color = "#facc15";
+    statusDiv.innerText = `> Scanning Lunar transits from ${fStr} to ${tStr}...`;
+    tBody.innerHTML = `<tr><td colspan="6">Scanning Entry & Exit Timings. Please wait...</td></tr>`;
+
+    let startYear = dStart.getFullYear();
+    let endYear = dEnd.getFullYear();
+    let allData = [];
+
+    try {
+        for(let y = startYear; y <= endYear; y++) {
+            const res = await fetch('https://donnie-astro-engine.onrender.com/transit-search', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ year: y, planet: "Chandra" })
+            });
+            const result = await res.json();
+            if(result.status === "success" && result.data) {
+                allData = allData.concat(result.data);
+            }
+        }
+
+        allData.sort((a, b) => new Date(a.datetime_utc) - new Date(b.datetime_utc));
+
+        // --- NEW IGNORE PADA LOGIC ---
+        let ignorePada = document.getElementById("ignorePadaToggle") ? document.getElementById("ignorePadaToggle").checked : false;
+        let displayData = ignorePada ? allData.filter(e => e.entered_pada === 1) : allData;
+
+        let sel = document.getElementById("userNakshatra").value;
+        let userNakName = sel ? sel.split(" - ")[3] : null;
+
+        let htmlRows = '';
+        let foundCount = 0;
+        let now = new Date();
+
+        for(let i = 0; i < displayData.length - 1; i++) {
+            let currentEvent = displayData[i];
+            let nextEvent = displayData[i+1];
+            
+            let entryDate = new Date(currentEvent.datetime_utc);
+            let exitDate = new Date(nextEvent.datetime_utc);
+
+            if(entryDate >= dStart && entryDate <= dEnd) {
+                foundCount++;
+                
+                let entryData = formatTransitDateIST(currentEvent.datetime_utc);
+				let exitData = formatTransitDateIST(nextEvent.datetime_utc);
+                
+                let taraStr = getTara(currentEvent.entered_nakshatra, userNakName);
+                let tClass = getTaraClass(taraStr);
+                
+                let nakIndex = nakshatras.indexOf(currentEvent.entered_nakshatra);
+                let lordStr = nakIndex !== -1 ? nakLords[nakIndex] : "--";
+
+                let isCurrent = (now >= entryDate && now < exitDate);
+                let rowStyle = isCurrent ? "background: rgba(0, 255, 135, 0.15); border: 2px solid #00ff87; box-shadow: inset 0 0 10px rgba(0, 255, 135, 0.3);" : "";
+                
+                // Hide the Pada number if we are ignoring Padas
+                let padaDisplay = ignorePada ? "" : ` - Pada ${currentEvent.entered_pada}`;
+
+                htmlRows += `
+                    <tr style="${rowStyle}" data-entry="${entryDate.getTime()}" data-exit="${exitDate.getTime()}">
+                        <td style="color:#00c6ff; font-weight:600;">${currentEvent.entered_rasi}</td>
+                        <td style="color:#ffb199; font-weight:bold;">${lordStr}</td>
+                        <td><span style="color:#facc15;font-weight:bold;">${currentEvent.entered_nakshatra}${padaDisplay}</span></td>
+                        <td class="${tClass}">${taraStr}</td>
+						
+                        <td style="font-weight:600; color:#00ff87;">
+						<div style="display: flex; justify-content: center; gap: 50px; padding: 0 10px;">
+							<span style="color:#e0e0e0;">${entryData.date}</span>
+							<span>${entryData.time}</span>
+						</div>
+					</td>
+					<td style="font-weight:600; color:#ff0844;">
+						<div style="display: flex; justify-content: center; gap: 50px; padding: 0 10px;">
+							<span style="color:#e0e0e0;">${exitData.date}</span>
+							<span>${exitData.time}</span>
+						</div>
+					</td>
+
+                    </tr>
+                `;
+            }
+        }
+
+        if(foundCount === 0) {
+            htmlRows = `<tr><td colspan="6">No lunar transits found in this date range.</td></tr>`;
+        }
+        
+        tBody.innerHTML = htmlRows;
+        statusDiv.style.color = "#00ff87";
+        statusDiv.innerText = `> Load Complete: Displaying exact timings for ${foundCount} Pada transits.`;
+
+        // --- NEW: RESTORE MANUAL HIGHLIGHT IF IT EXISTS ---
+        if (window.lastSearchTime) {
+            let rows = document.querySelectorAll("#moonTransitBody tr[data-entry]");
+            for(let row of rows) {
+                let entry = parseInt(row.dataset.entry);
+                let exit = parseInt(row.dataset.exit);
+                if(window.lastSearchTime >= entry && window.lastSearchTime < exit) {
+                    row.style.background = "rgba(0, 198, 255, 0.25)"; 
+                    row.style.boxShadow = "inset 0 0 15px rgba(0, 198, 255, 0.6)";
+                    for(let cell of row.cells) {
+                        cell.style.borderTop = "2px solid #00c6ff";
+                        cell.style.borderBottom = "2px solid #00c6ff";
+                    }
+                    row.dataset.manualHighlight = "true";
+                    break;
+                }
+            }
+        }
+        // --------------------------------------------------
+
+    } catch (err) {
+        statusDiv.style.color = "#ff0844";
+        statusDiv.innerText = `> Fetch failed: Server might be sleeping. (${err.message})`;
+        tBody.innerHTML = `<tr><td colspan="6">Error loading data. Try again.</td></tr>`;
+    }
+}
+let syncTimeout = null;
+function syncFindToLive() {
+    let fd = document.getElementById("findDay").value;
+    let fm = document.getElementById("findMonth").value;
+    let fy = document.getElementById("findYear").value;
+    let fh = document.getElementById("findHour").value || "00";
+    let fmin = document.getElementById("findMin").value || "00";
+
+    if (!fd || !fm || !fy) return;
+
+    // 1. Sync Find Tara inputs over to Live Moon inputs instantly
+    document.getElementById("onDay").value = fd.padStart(2, '0');
+    document.getElementById("onMonth").value = fm.padStart(2, '0');
+    document.getElementById("onYear").value = fy;
+    document.getElementById("onHour").value = fh.padStart(2, '0');
+    document.getElementById("onMin").value = fmin.padStart(2, '0');
+    document.getElementById("onSec").value = "00";
+
+    // 2. Trigger the auto-syncing for Live Moon Location
+    triggerFetch();
+
+    // 3. Debounce the table lookup so it automatically finds & scrolls to the date
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(() => {
+        findManualTara();
+    }, 800);
+}
+
+function findDateSpinner(e, type, prefix = "find") {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+        let d = parseInt(document.getElementById(prefix + "Day").value) || 1;
+        let m = parseInt(document.getElementById(prefix + "Month").value) || 1;
+        let y = parseInt(document.getElementById(prefix + "Year").value) || new Date().getFullYear();
+        let delta = (e.key === "ArrowUp") ? 1 : -1;
+        
+        if (type === 'day') {
+            let dateObj = new Date(y, m - 1, d + delta);
+            d = dateObj.getDate(); m = dateObj.getMonth() + 1; y = dateObj.getFullYear();
+        } else if (type === 'month') {
+            m += delta;
+            if (m > 12) { m = 1; y++; } if (m < 1) { m = 12; y--; }
+            let maxDays = new Date(y, m, 0).getDate();
+            if (d > maxDays) d = maxDays;
+        } else if (type === 'year') {
+            y += delta;
+            let maxDays = new Date(y, m, 0).getDate();
+            if (d > maxDays) d = maxDays;
+        }
+        document.getElementById(prefix + "Day").value = String(d).padStart(2, '0');
+        document.getElementById(prefix + "Month").value = String(m).padStart(2, '0');
+        document.getElementById(prefix + "Year").value = y;
+
+        // Automatically sync if modified from the Find section
+        if (prefix === "find") syncFindToLive();
+    }
+}
+
+function findTimeSpinner(e, type, prefix = "find") {
+    if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        e.preventDefault();
+        let hr = parseInt(document.getElementById(prefix + "Hour").value) || 0;
+        let min = parseInt(document.getElementById(prefix + "Min").value) || 0;
+        let secBox = document.getElementById(prefix + "Sec");
+        let sec = secBox ? (parseInt(secBox.value) || 0) : 0;
+        let delta = (e.key === "ArrowUp") ? 1 : -1;
+        
+        if (type === 'hour') {
+            hr += delta; if (hr > 23) hr = 0; if (hr < 0) hr = 23;
+        } else if (type === 'minute') {
+            min += delta;
+            if (min > 59) { min = 0; hr++; } if (min < 0) { min = 59; hr--; }
+            if (hr > 23) hr = 0; if (hr < 0) hr = 23;
+        } else if (type === 'second') {
+            sec += delta;
+            if (sec > 59) { sec = 0; min++; } if (sec < 0) { sec = 59; min--; }
+            if (min > 59) { min = 0; hr++; } if (min < 0) { min = 59; hr--; }
+            if (hr > 23) hr = 0; if (hr < 0) hr = 23;
+        }
+        document.getElementById(prefix + "Hour").value = String(hr).padStart(2, '0');
+        document.getElementById(prefix + "Min").value = String(min).padStart(2, '0');
+        if (secBox) secBox.value = String(sec).padStart(2, '0');
+
+        // Automatically sync if modified from the Find section
+        if (prefix === "find") syncFindToLive();
+    }
+}
+
+async function findManualTara() {
+    let d = document.getElementById("findDay").value;
+    let m = document.getElementById("findMonth").value;
+    let y = document.getElementById("findYear").value;
+    let hr = document.getElementById("findHour").value;
+    let min = document.getElementById("findMin").value;
+    let resultSpan = document.getElementById("manualFindResult");
+    
+    if(!d || !m || !y || !hr || !min) {
+        resultSpan.style.color = "#ff0844";
+        resultSpan.innerText = "Fill all date & time fields.";
+        return;
+    }
+    
+    d = d.padStart(2, '0');
+    m = m.padStart(2, '0');
+    hr = hr.padStart(2, '0');
+    min = min.padStart(2, '0');
+
+    let searchDate = new Date(`${y}-${m}-${d}T${hr}:${min}:00+05:30`); 
+
+    // --- UPDATED: AUTO-SYNC TO -10 DAYS & +20 DAYS ---
+    // Calculate 10 days BEFORE the search date
+    let tableStartDate = new Date(y, parseInt(m)-1, parseInt(d));
+    tableStartDate.setDate(tableStartDate.getDate() - 10); 
+    
+    let tY = tableStartDate.getFullYear();
+    let tM = String(tableStartDate.getMonth() + 1).padStart(2, '0');
+    let tD = String(tableStartDate.getDate()).padStart(2, '0');
+    
+    document.getElementById("transitFrom").value = `${tY}-${tM}-${tD}`;
+    // autoSetToDate naturally adds 30 days to From, making the To Date exactly +20 days from search!
+    autoSetToDate(); 
+    
+    resultSpan.style.color = "#00f2fe";
+    resultSpan.innerText = "Syncing Table & Searching...";
+
+    // Await the table refresh so rows are generated before we highlight them
+    await fetchMoonTransitsRange();
+    // ---------------------------------------
+
+    // Snap progression to the Find Custom Date!
+    if(typeof triggerAutoProgression === 'function') triggerAutoProgression('find'); 
+
+    let sel = document.getElementById("userNakshatra").value;
+    let userNakName = sel ? sel.split(" - ")[3] : null;
+    
+    if(!userNakName) { 
+        resultSpan.style.color = "#ff0844";
+        resultSpan.innerText = "Select Janma Nakshatra First!"; 
+        return; 
+    }
+
+    try {
+        let res = await fetch('https://donnie-astro-engine.onrender.com/transit-search', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ year: parseInt(y), planet: "Chandra" })
+        });
+        
+        let result = await res.json();
+        if(result.status === "success" && result.data) {
+            let transits = result.data;
+            transits.sort((a, b) => new Date(a.datetime_utc) - new Date(b.datetime_utc));
+            
+            let foundNak = null;
+            for(let i = 0; i < transits.length - 1; i++) {
+                let t1 = new Date(transits[i].datetime_utc);
+                let t2 = new Date(transits[i+1].datetime_utc);
+                if(searchDate >= t1 && searchDate < t2) {
+                    foundNak = transits[i].entered_nakshatra;
+                    break;
+                }
+            }
+            
+            if(foundNak) {
+                let tStr = getTara(foundNak, userNakName);
+                let tClass = getTaraClass(tStr);
+                let colorHex = tClass === "tara-bad" ? "#ff0844" : (tClass === "tara-good" ? "#00ff87" : "#f6d365");
+                
+                resultSpan.innerHTML = `Moon in ${foundNak} | Tara: <span style="color:${colorHex}">${tStr}</span>`;
+                
+                // --- TABLE HIGHLIGHT & SCROLL LOGIC ---
+                let sTime = searchDate.getTime();
+                
+                // NEW: Store globally so highlight & text persists through Nakshatra changes
+                window.lastSearchTime = sTime;
+                window.lastFoundNak = foundNak;
+                
+                let rows = document.querySelectorAll("#moonTransitBody tr[data-entry]");
+                
+                // Clear any previous manual highlights
+                rows.forEach(row => {
+                    if(row.dataset.manualHighlight === "true") {
+                        row.style.background = "";
+                        row.style.boxShadow = "";
+                        row.style.border = "";
+                        // Clear direct cell borders if they exist
+                        for(let cell of row.cells) {
+                            cell.style.borderTop = "";
+                            cell.style.borderBottom = "";
+                        }
+                        delete row.dataset.manualHighlight;
+                    }
+                });
+
+                // Find the target row, apply deep Cyan styling, and scroll to it
+                for(let row of rows) {
+                    let entry = parseInt(row.dataset.entry);
+                    let exit = parseInt(row.dataset.exit);
+                    if(sTime >= entry && sTime < exit) {
+                        row.style.background = "rgba(0, 198, 255, 0.25)"; 
+                        row.style.boxShadow = "inset 0 0 15px rgba(0, 198, 255, 0.6)";
+                        
+                        // Apply border directly to cells to ensure it overrides table css
+                        for(let cell of row.cells) {
+                            cell.style.borderTop = "2px solid #00c6ff";
+                            cell.style.borderBottom = "2px solid #00c6ff";
+                        }
+                        row.dataset.manualHighlight = "true";
+                        
+                        // Tiny delay gives the browser time to paint the new table before scrolling
+                        setTimeout(() => {
+                            row.scrollIntoView({ behavior: "smooth", block: "center" });
+                        }, 150);
+                        break;
+                    }
+                }
+            } else {
+                resultSpan.style.color = "#ff0844";
+                resultSpan.innerText = "Transit not found.";
+            }
+        }
+    } catch(e) {
+        resultSpan.style.color = "#ff0844";
+        resultSpan.innerText = "Server Error.";
+    }
+}
+
+/* ===================== CLOUD BIRTH FETCHER LOGIC ===================== */
+window.birthProfile = null;
+let bWakeInterval = null;
+
+function autoSelectProgressedNakshatra(transitDate) {
+    if (!window.birthProfile) return;
+    const bDate = window.birthProfile.date;
+    const bMoonDeg = window.birthProfile.moonDeg;
+
+    const VIM_YEARS = [7, 20, 6, 10, 7, 18, 16, 19, 17];
+    const MS_PER_YEAR = 365.2421904 * 24 * 60 * 60 * 1000;
+    const NAK_SPAN = 360 / 27;
+
+    let nakIndex = Math.floor(bMoonDeg / NAK_SPAN);
+    let offsetInNak = bMoonDeg % NAK_SPAN;
+    let fracPassed = offsetInNak / NAK_SPAN;
+
+    let starLordIdx = nakIndex % 9;
+    let currentDashaYears = VIM_YEARS[starLordIdx];
+
+    let yearsPassedInFirstDasha = fracPassed * currentDashaYears;
+    let elapsedYears = (transitDate - bDate) / MS_PER_YEAR;
+    
+    let targetYears = yearsPassedInFirstDasha + elapsedYears;
+    let currentNakIdx = nakIndex;
+    let currentLordIdx = starLordIdx;
+
+    if (targetYears >= 0) {
+        while (targetYears >= VIM_YEARS[currentLordIdx]) {
+            targetYears -= VIM_YEARS[currentLordIdx];
+            currentNakIdx = (currentNakIdx + 1) % 27;
+            currentLordIdx = currentNakIdx % 9;
+        }
+    } else {
+        while (targetYears < 0) {
+            currentNakIdx = (currentNakIdx - 1 + 27) % 27;
+            currentLordIdx = currentNakIdx % 9;
+            targetYears += VIM_YEARS[currentLordIdx];
+        }
+    }
+
+    let fracInProgressed = targetYears / VIM_YEARS[currentLordIdx];
+    let progressedMoonDeg = (currentNakIdx * NAK_SPAN) + (fracInProgressed * NAK_SPAN);
+    
+    const fetchedPadaStr = degreeToPada(progressedMoonDeg);
+    const userNakshatraDropdown = document.getElementById("userNakshatra");
+    
+    let optionExists = false;
+    for(let i = 0; i < userNakshatraDropdown.options.length; i++) {
+        if(userNakshatraDropdown.options[i].value === fetchedPadaStr) {
+            optionExists = true;
+            break;
+        }
+    }
+    
+    const progToggle = document.getElementById("progMoonToggle");
+
+    // Only force the dropdown to change if the Prog Moon toggle is explicitly checked
+    if(optionExists && progToggle && progToggle.checked && userNakshatraDropdown.value !== fetchedPadaStr) {
+        userNakshatraDropdown.value = fetchedPadaStr;
+        updateUI(); // Propagate Tara updates automatically
+    }
+
+    document.getElementById("birthStatusIndicator").innerText = `✅ Progressed Moon Active (${progressedMoonDeg.toFixed(2)}°)`;
+    document.getElementById("birthStatusIndicator").style.color = "#39FF14";
+}
+
+function triggerAutoProgression(sourceId) {
+    if (!window.birthProfile) return;
+    let tDate = new Date();
+    
+    if (sourceId === 'find') {
+        const y = document.getElementById("findYear").value;
+        const m = document.getElementById("findMonth").value;
+        const d = document.getElementById("findDay").value;
+        const hr = document.getElementById("findHour").value || 0;
+        const min = document.getElementById("findMin").value || 0;
+        if(y && m && d) {
+            tDate = new Date(`${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}T${String(hr).padStart(2,'0')}:${String(min).padStart(2,'0')}:00+05:30`);
+        }
+    } else {
+        const liveYear = document.getElementById("onYear")?.value;
+        const liveMonth = document.getElementById("onMonth")?.value;
+        const liveDay = document.getElementById("onDay")?.value;
+        const liveHr = document.getElementById("onHour")?.value || 0;
+        const liveMin = document.getElementById("onMin")?.value || 0;
+        if (liveYear && liveMonth && liveDay) {
+            tDate = new Date(`${liveYear}-${String(liveMonth).padStart(2,'0')}-${String(liveDay).padStart(2,'0')}T${String(liveHr).padStart(2,'0')}:${String(liveMin).padStart(2,'0')}:00+05:30`);
+        }
+    }
+    
+    autoSelectProgressedNakshatra(tDate);
+}
+
+function applyBPresetLocation() {
+
+    const val = document.getElementById("bLocationPreset").value;
+    if (val === "manual") {
+        document.getElementById("bLat").value = "13.3190737";
+        document.getElementById("bLon").value = "77.1326306";
+    } else {
+        const coords = val.split(",");
+        document.getElementById("bLat").value = coords[0];
+        document.getElementById("bLon").value = coords[1];
+    }
+}
+
+let bCurrentMapResults = [];
+async function searchBOnlineMap() {
+    const query = document.getElementById("bMapSearchQuery").value.trim();
+    if (!query) return;
+    const btn = document.querySelector("button[onclick='searchBOnlineMap()']");
+    const origText = btn.innerHTML;
+    btn.innerHTML = "Searching..."; btn.disabled = true;
+    try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=10&q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        const resultsDropdown = document.getElementById("bMapSearchResults");
+        resultsDropdown.innerHTML = "";
+        if (data && data.length > 0) {
+            bCurrentMapResults = data;
+            const defaultOpt = document.createElement("option");
+            defaultOpt.text = `-- Found ${data.length} places. Select one --`; defaultOpt.value = "";
+            resultsDropdown.appendChild(defaultOpt);
+            data.forEach((place, index) => {
+                const opt = document.createElement("option");
+                opt.text = place.display_name.length > 60 ? place.display_name.substring(0, 57) + "..." : place.display_name;
+                opt.value = index; resultsDropdown.appendChild(opt);
+            });
+            resultsDropdown.style.display = "block";
+        } else {
+            resultsDropdown.style.display = "none";
+            alert("Place not found.");
+        }
+    } catch (error) { alert("Map search error."); }
+    finally { btn.innerHTML = origText; btn.disabled = false; }
+}
+
+function applyBMapSelection() {
+    const dropdown = document.getElementById("bMapSearchResults");
+    const selectedIndex = dropdown.value;
+    if (selectedIndex !== "") {
+        const selectedPlace = bCurrentMapResults[selectedIndex];
+        document.getElementById("bLat").value = parseFloat(selectedPlace.lat).toFixed(6);
+        document.getElementById("bLon").value = parseFloat(selectedPlace.lon).toFixed(6);
+        document.getElementById("bLocationPreset").value = "manual";
+    }
+}
+
+function clearBFetchData() {
+    document.getElementById("bName").value = "";
+    document.getElementById("bDay").value = "";
+    document.getElementById("bMonth").value = "";
+    document.getElementById("bYear").value = "";
+    document.getElementById("bHour").value = "";
+    document.getElementById("bMin").value = "";
+    document.getElementById("bSec").value = "00";
+    document.getElementById("bLat").value = "";
+    document.getElementById("bLon").value = "";
+    window.birthProfile = null; // Clear the memory
+    document.getElementById("birthStatusIndicator").innerText = "❌ No Birth Data Loaded";
+    document.getElementById("birthStatusIndicator").style.color = "#ff0844";
+}
+
+function saveBCloudProfile() {
+    const name = document.getElementById("bName").value.trim() || "Profile";
+    const profileData = {
+        type: "CloudHoroscopeProfile", name: name,
+        date: { d: document.getElementById("bDay").value, m: document.getElementById("bMonth").value, y: document.getElementById("bYear").value },
+        time: { h: document.getElementById("bHour").value, min: document.getElementById("bMin").value, sec: document.getElementById("bSec").value },
+        coords: { lat: document.getElementById("bLat").value, lon: document.getElementById("bLon").value }
+    };
+    const dataStr = JSON.stringify(profileData, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = `${name.replace(/[^a-z0-9]/gi, '_').toUpperCase()}.json`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+
+function loadBCloudProfile(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.type === "CloudHoroscopeProfile") {
+                document.getElementById("bName").value = data.name || "";
+                if (data.date) {
+                    document.getElementById("bDay").value = data.date.d || "";
+                    document.getElementById("bMonth").value = data.date.m || "";
+                    document.getElementById("bYear").value = data.date.y || "";
+                }
+                if (data.time) {
+                    document.getElementById("bHour").value = data.time.h || "";
+                    document.getElementById("bMin").value = data.time.min || "";
+                    document.getElementById("bSec").value = data.time.sec || "00";
+                }
+                if (data.coords) {
+                    document.getElementById("bLat").value = data.coords.lat || "";
+                    document.getElementById("bLon").value = data.coords.lon || "";
+                    document.getElementById("bLocationPreset").value = "manual";
+                }
+                setTimeout(() => { fetchBBirthFromCloud(); }, 300);
+            } else if (data.planets && (data.planets.Chandra !== undefined || data.planets.Moon !== undefined) && data.meta && data.meta.datetime_utc) {
+                const bDate = new Date(data.meta.datetime_utc);
+                document.getElementById("bDay").value = String(bDate.getDate()).padStart(2, '0');
+                document.getElementById("bMonth").value = String(bDate.getMonth() + 1).padStart(2, '0');
+                document.getElementById("bYear").value = bDate.getFullYear();
+                document.getElementById("bHour").value = String(bDate.getHours()).padStart(2, '0');
+                document.getElementById("bMin").value = String(bDate.getMinutes()).padStart(2, '0');
+                document.getElementById("bSec").value = String(bDate.getSeconds()).padStart(2, '0');
+                if (data.meta.latitude) document.getElementById("bLat").value = data.meta.latitude;
+                if (data.meta.longitude) document.getElementById("bLon").value = data.meta.longitude;
+                document.getElementById("bName").value = data.meta.name || "Loaded Chart";
+                setTimeout(() => { fetchBBirthFromCloud(); }, 300);
+            } else {
+                alert("Unrecognized JSON! Must be a Cloud Profile or a standard Chart JSON.");
+            }
+        } catch (error) { alert("Error reading JSON file."); }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+async function fetchBBirthFromCloud() {
+    const d = document.getElementById("bDay").value;
+    const m = document.getElementById("bMonth").value;
+    const y = document.getElementById("bYear").value;
+    const hr = document.getElementById("bHour").value;
+    const min = document.getElementById("bMin").value;
+    const sec = document.getElementById("bSec").value || "00";
+    const latVal = document.getElementById("bLat").value;
+    const lonVal = document.getElementById("bLon").value;
+
+    if (!d || !m || !y || !hr || !min || !latVal || !lonVal) {
+        alert("Please fill all birth details (Date, Time, Lat, Lon)."); return;
+    }
+
+    const requestData = {
+        year: parseInt(y), month: parseInt(m), day: parseInt(d),
+        hour: parseInt(hr), minute: parseInt(min), second: parseInt(sec),
+        lat: parseFloat(latVal), lon: parseFloat(lonVal),
+        timezone_offset: 330, horary_mode: false
+    };
+
+    const btn = document.getElementById("bFetchCloudBtn");
+    const originalText = btn.innerHTML;
+    btn.innerHTML = "Fetching... &#x23F3;";
+    btn.disabled = true;
+
+    const wakeContainer = document.getElementById("bServerWakeContainer");
+    const wakeMessage = document.getElementById("bWakeMessage");
+    const digitalClockPart = document.getElementById("bDigitalClockPart");
+    const progressBarPart = document.getElementById("bProgressBarPart");
+
+    wakeContainer.style.visibility = "visible";
+    wakeMessage.innerText = "> INITIATING_LINK...";
+    wakeMessage.style.color = "#facc15";
+    digitalClockPart.style.color = "#facc15";
+
+    let secondsElapsed = 0;
+    digitalClockPart.innerText = "00:00";
+    progressBarPart.innerText = "[" + ".".repeat(20) + "]";
+
+    if (bWakeInterval) clearInterval(bWakeInterval);
+    bWakeInterval = setInterval(() => {
+        secondsElapsed++;
+        let mins = Math.floor(secondsElapsed / 60);
+        let secs = secondsElapsed % 60;
+        digitalClockPart.innerText = String(mins).padStart(2, '0') + ":" + String(secs).padStart(2, '0');
+        if (secondsElapsed <= 40) {
+            let percent = (secondsElapsed / 40) * 100;
+            let pipesCount = Math.floor(percent / 5);
+            progressBarPart.innerText = "[" + "|".repeat(pipesCount) + ".".repeat(20 - pipesCount) + "]";
+        } else {
+            let wavePos = (secondsElapsed % 20);
+            let waveArr = Array(20).fill('.');
+            waveArr[wavePos] = '|';
+            if(wavePos > 0) waveArr[wavePos-1] = '|';
+            if(wavePos < 19) waveArr[wavePos+1] = '|';
+            progressBarPart.innerText = "[" + waveArr.join('') + "]";
+        }
+        if (secondsElapsed === 2) wakeMessage.innerText = "> PINGING_SERVER...";
+        if (secondsElapsed === 5) wakeMessage.innerText = "> WAKING_COLD_INSTANCE...";
+    }, 1000);
+
+    try {
+        const response = await fetch('https://donnie-astro-engine.onrender.com/calculate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
+        });
+
+        const result = await response.json();
+        if (bWakeInterval) clearInterval(bWakeInterval);
+
+        if (result.status === "success") {
+            wakeMessage.innerText = "> LINK_ESTABLISHED";
+            wakeMessage.style.color = "#39FF14";
+            digitalClockPart.style.color = "#39FF14";
+            progressBarPart.innerText = "[" + "|".repeat(20) + "]";
+            setTimeout(() => { if (wakeContainer) wakeContainer.style.visibility = "hidden"; }, 2000);
+
+            const bMoonDeg = result.data.planets.Chandra !== undefined ? result.data.planets.Chandra : result.data.planets.Moon;
+            
+            // --- AGGRESSIVE LAGNA EXTRACTION ---
+            let bLagnaDeg = undefined;
+            const pData = result.data.planets || {};
+            const hData = result.data.houses || {};
+
+            if (pData.Ascendant !== undefined) bLagnaDeg = pData.Ascendant;
+            else if (pData.Lagna !== undefined) bLagnaDeg = pData.Lagna;
+            else if (pData.Asc !== undefined) bLagnaDeg = pData.Asc;
+            else if (result.data.ascendant !== undefined) bLagnaDeg = result.data.ascendant;
+            else if (result.data.Ascendant !== undefined) bLagnaDeg = result.data.Ascendant;
+            else if (result.data.lagna !== undefined) bLagnaDeg = result.data.lagna;
+            else if (result.data.Lagna !== undefined) bLagnaDeg = result.data.Lagna;
+            else if (hData["1"] !== undefined) bLagnaDeg = hData["1"];
+            else if (hData[1] !== undefined) bLagnaDeg = hData[1];
+            else if (Array.isArray(hData) && hData.length > 0) bLagnaDeg = hData[0];
+
+            // If API returns an object instead of a direct float (e.g. { degree: 123.45 })
+            if (typeof bLagnaDeg === 'object' && bLagnaDeg !== null) {
+                bLagnaDeg = bLagnaDeg.normDegree || bLagnaDeg.fullDegree || bLagnaDeg.degree;
+            }
+
+            bLagnaDeg = parseFloat(bLagnaDeg);
+
+            // ============================================
+            // STORE BIRTH PROFILE & TRIGGER PROGRESSION
+            // ============================================
+            const bDate = new Date(parseInt(y), parseInt(m) - 1, parseInt(d), parseInt(hr), parseInt(min), parseInt(sec));
+            window.birthProfile = { date: bDate, moonDeg: bMoonDeg, lagnaDeg: bLagnaDeg };
+            
+            // Trigger progression based on the current Live Transit Date inputs
+            triggerAutoProgression('live');
+
+            btn.innerHTML = "SUCCESS ✓";
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 3000);
+        } else {
+            throw new Error("Server error");
+        }
+    } catch (error) {
+        if (bWakeInterval) clearInterval(bWakeInterval);
+        wakeMessage.innerText = "> CONNECTION_FAILED";
+        wakeMessage.style.color = "#ff4444";
+        digitalClockPart.style.color = "#ff4444";
+        setTimeout(() => { if (wakeContainer) wakeContainer.style.visibility = "hidden"; }, 3000);
+        btn.innerHTML = originalText; btn.disabled = false;
+    }
+}
+</script>
+
+</body>
+</html>
